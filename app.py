@@ -94,7 +94,7 @@ def storeFeedback():
 
 @app.route('/study')
 def study():
-    subject = request.args.get('subject'); classid=request.args.get('class');
+    subject = request.args.get('subject'); classid=request.args.get('class')
     return study_(subject, classid)
 
 @app.route('/bookshopapi', methods=['POST', 'GET'])

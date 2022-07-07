@@ -28,7 +28,7 @@ def login_(account_type=None, username=None, passkey=None, userfromdash=None):
                 session['usertype'] = 'parent'
                 return redirect(url_for('dashboard') + '?for=parent')
             else:
-                return "fail"
+                return render_template('Landing Website/failedLogin.html')
         # Student Account
         elif account_type == "student":
             # Get parent id of student
@@ -54,7 +54,7 @@ def login_(account_type=None, username=None, passkey=None, userfromdash=None):
                     # Inform Parent Child Is not subscribed
                     return render_template('ParentDashboard/Unsubscribed.html')
             else:
-                return redirect('/login?as=student')
+                return redirect('/Landing Website/failedLogin.html')
 
         # Account type not specified
         else:
@@ -220,9 +220,9 @@ def getLessonData(subject, dbpath, classid):
         dbpath = '/lessons/sst.db3'
     elif subject == 'Sci':
         dbpath = '/lessons/science.db3'
-    
+
     lessons = getLessonData(subject, dbpath, classid)
-    return render_template('ChildDashboard/lesson.html', lessons = lessons, subject=subject, child = getChild(session.get('user')))
+    return render_template('ChildDashboard/lesson.html', lessons=lessons, subject=subject, child=getChild(session.get('user')))
     # Get lesson data from database
     lessonData = db.runDBQuery(dbpath, f'SELECT * FROM P{classid};')
     return lessonData
