@@ -13,9 +13,9 @@ def storeFeedback_(request):
 
     return render_template('/ParentDashboard/success.html')
 
-def getLessonData(subject, dbpath, classid):
+def getLessonData(subject, dbpath, classId):
     # Get lesson data from database
-    lessonData = db.runDBQuery(dbpath, f'SELECT * FROM P{classid};')
+    lessonData = db.runDBQuery(dbpath, f'SELECT * FROM P{classId};')
     print(lessonData)
 
 

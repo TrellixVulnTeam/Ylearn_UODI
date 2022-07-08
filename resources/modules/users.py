@@ -90,7 +90,7 @@ def signup_(request=None):
             dob = request.form.get("dob")
             name = request.form.get('name')
             gender = request.form.get('gender')
-            classid = request.form.get('class')
+            classId = request.form.get('class')
             username = request.form.get('username')
             profile_pic = request.form.get('profile')
 
@@ -98,7 +98,7 @@ def signup_(request=None):
             if parentid != None:
              # Add Child to Database
                 db.runDBQuery(
-                    db.users_db, f'INSERT INTO children ("Username", "Name", "Class", "DOB", "Gender", "Parent", "Profile_Picture", "LastPayment") VALUES' f' ("{username}","{name}", "{classid}", "{dob}", "{gender}", "{parentid}", "{profile_pic}", "2000-01-01");')
+                    db.users_db, f'INSERT INTO children ("Username", "Name", "Class", "DOB", "Gender", "Parent", "Profile_Picture", "LastPayment") VALUES' f' ("{username}","{name}", "{classId}", "{dob}", "{gender}", "{parentid}", "{profile_pic}", "2000-01-01");')
 
              # Add child to parent's registered list
                 newChildList = getChildrenIds(parentid)
@@ -206,11 +206,11 @@ def chat_(sender):
     return render_template('Chat/chat.html', sender=sender)
 
 
-def getLessonData(subject, dbpath, classid):
-    if classid <= 4:
-        classid = '4'
-    elif classid <= 7:
-        classid = '5'
+def getLessonData(subject, dbpath, classId):
+    if classId <= 4:
+        classId = '4'
+    elif classId <= 7:
+        classId = '5'
 
     if subject == 'Math':
         dbpath = '/lessons/math.db3'
@@ -221,8 +221,5 @@ def getLessonData(subject, dbpath, classid):
     elif subject == 'Sci':
         dbpath = '/lessons/science.db3'
 
-    lessons = getLessonData(subject, dbpath, classid)
+    lessons = getLessonData(subject, dbpath, classId)
     return render_template('ChildDashboard/lesson.html', lessons=lessons, subject=subject, child=getChild(session.get('user')))
-    # Get lesson data from database
-    lessonData = db.runDBQuery(dbpath, f'SELECT * FROM P{classid};')
-    return lessonData
